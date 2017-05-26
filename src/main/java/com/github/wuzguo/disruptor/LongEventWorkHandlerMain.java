@@ -4,10 +4,7 @@ package com.github.wuzguo.disruptor;
 import com.github.wuzguo.disruptor.event.LongEvent;
 import com.github.wuzguo.disruptor.factory.LongEventFactory;
 import com.github.wuzguo.disruptor.factory.LongEventProcessorFactory;
-import com.github.wuzguo.disruptor.handler.LongEventExceptionHandler;
-import com.github.wuzguo.disruptor.handler.LongEventMatchHandler;
-import com.github.wuzguo.disruptor.handler.LongEventThenWorkHandler;
-import com.github.wuzguo.disruptor.handler.LongEventWorkHandler;
+import com.github.wuzguo.disruptor.handler.*;
 import com.github.wuzguo.disruptor.producer.LongEventProducerWithTranslator;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.YieldingWaitStrategy;
@@ -42,11 +39,20 @@ public class LongEventWorkHandlerMain {
         // Connect the handler
         disruptor.setDefaultExceptionHandler(new LongEventExceptionHandler());
 
+        // 模拟消费者的三个状态，并行->串行->并行
         EventHandlerGroup<LongEvent> handlerGroup = disruptor.
-                handleEventsWithWorkerPool(new LongEventWorkHandler()).then(new LongEventMatchHandler()).
-                thenHandleEventsWithWorkerPool(new LongEventThenWorkHandler());
+                handleEventsWithWorkerPool(new LongEventWorkHandler(),
+                        new LongEventWorkHandler(),
+                        new LongEventWorkHandler()).
+                then(new LongEventMatchHandler()).
+                thenHandleEventsWithWorkerPool(new LongEventThenWorkHandler(),
+                        new LongEventThenWorkHandler(),
+                        new LongEventThenWorkHandler());
 
-        handlerGroup.then(new LongEventProcessorFactory(disruptor, handlerGroup));
+        // Set up custom event processors to handle events from the ring buffer.
+        handlerGroup.then(new LongEventProcessorFactory(disruptor, handlerGroup))
+                // Clearing Objects From the Ring Buffer
+                .then(new ClearingEventHandler());
 
         // Start the Disruptor, starts all threads running
         disruptor.start();

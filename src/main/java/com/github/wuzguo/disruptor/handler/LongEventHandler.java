@@ -19,11 +19,11 @@ public class LongEventHandler implements EventHandler<LongEvent> {
     public void onEvent(final LongEvent longEvent, final long l, final boolean b) throws Exception {
         // 如果为空直接抛异常
         if (longEvent == null) {
-            System.out.println("longEvent is null, l: " + l);
+            System.out.println(Thread.currentThread().getName() + ": longEvent is null, l: " + l);
             throw new Exception("longEvent is null");
         }
 
         // 具体的业务逻辑
-        System.out.println("longEvent: " + longEvent);
+        System.out.println(Thread.currentThread().getName() + ": longEvent: " + longEvent);
     }
 }

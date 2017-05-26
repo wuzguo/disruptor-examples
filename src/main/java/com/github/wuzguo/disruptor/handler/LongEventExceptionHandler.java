@@ -11,14 +11,14 @@ import com.lmax.disruptor.ExceptionHandler;
 public class LongEventExceptionHandler implements ExceptionHandler {
 
     public void handleEventException(Throwable throwable, long l, Object o) {
-        System.out.println("handleEventException...");
+        System.out.println(" handleEventException ...");
     }
 
     public void handleOnStartException(Throwable throwable) {
-        System.out.println("handleOnStartException...");
+        System.out.println(" handleOnStartException ...");
     }
 
     public void handleOnShutdownException(Throwable throwable) {
-        System.out.println("handleOnShutdownException...");
+        System.out.println(" handleOnShutdownException ...");
     }
 }

@@ -12,7 +12,7 @@ import com.lmax.disruptor.TimeoutHandler;
  */
 public class LongEventMatchHandler implements EventHandler<LongEvent>, TimeoutHandler {
     public void onTimeout(long l) throws Exception {
-        System.out.println("[LongEventMatchHandler] onTimeout...");
+        System.out.println(Thread.currentThread().getName() + ": [LongEventMatchHandler] onTimeout...");
     }
 
     public void onEvent(LongEvent longEvent, long l, boolean b) throws Exception {
@@ -20,7 +20,7 @@ public class LongEventMatchHandler implements EventHandler<LongEvent>, TimeoutHa
             throw new Exception("[LongEventMatchHandler] longEvent is null");
         }
 
-        System.out.println("[LongEventMatchHandler] longEvent: " + longEvent);
+        System.out.println(Thread.currentThread().getName() + ": [LongEventMatchHandler] longEvent: " + longEvent);
 
     }
 }

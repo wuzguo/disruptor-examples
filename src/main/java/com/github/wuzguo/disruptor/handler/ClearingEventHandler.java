@@ -17,6 +17,7 @@ public class ClearingEventHandler implements EventHandler<LongEvent> {
      * @throws Exception
      */
     public void onEvent(final LongEvent longEvent, final long l, final boolean b) throws Exception {
+        System.out.println(Thread.currentThread().getName() + ": [ClearingEventHandler] longEvent: " + longEvent);
         longEvent.clear();
     }
 }

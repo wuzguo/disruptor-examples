@@ -16,7 +16,7 @@ public class LongEventThenWorkHandler implements WorkHandler<LongEvent>, Timeout
      * @throws Exception
      */
     public void onTimeout(final long l) throws Exception {
-        System.out.println("[LongEventThenWorkHandler] longEvent then handler timeout");
+        System.out.println(Thread.currentThread().getName() + ": [LongEventThenWorkHandler] longEvent then handler timeout");
     }
 
     public void onEvent(final LongEvent longEvent) throws Exception {
@@ -24,6 +24,6 @@ public class LongEventThenWorkHandler implements WorkHandler<LongEvent>, Timeout
             throw new Exception("[LongEventThenWorkHandler] longEvent then is null");
         }
 
-        System.out.println("[LongEventThenWorkHandler] longEvent then: " + longEvent);
+        System.out.println(Thread.currentThread().getName() + ": [LongEventThenWorkHandler] longEvent then: " + longEvent);
     }
 }

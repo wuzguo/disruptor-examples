@@ -22,11 +22,11 @@ public class LongEventUpdateHandler implements EventHandler<LongEvent>, TimeoutH
             throw new Exception("[LongEventUpdateHandler] longEvent is null");
         }
 
-        System.out.println("[LongEventUpdateHandler] longEvent: " + longEvent);
+        System.out.println(Thread.currentThread().getName() + ": [LongEventUpdateHandler] longEvent: " + longEvent);
 
     }
 
     public void onTimeout(long l) throws Exception {
-        System.out.println("[LongEventUpdateHandler] longEvent handler timeout");
+        System.out.println(Thread.currentThread().getName() + ": [LongEventUpdateHandler] longEvent handler timeout");
     }
 }

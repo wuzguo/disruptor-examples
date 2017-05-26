@@ -22,10 +22,10 @@ public class LongEventWorkHandler implements WorkHandler<LongEvent>, TimeoutHand
             throw new Exception("[LongEventWorkHandler] longEvent is null");
         }
 
-        System.out.println("[LongEventWorkHandler] longEvent: " + longEvent);
+        System.out.println(Thread.currentThread().getName() + ": [LongEventWorkHandler] longEvent: " + longEvent);
     }
 
     public void onTimeout(final long l) throws Exception {
-        System.out.println("[LongEventWorkHandler] longEvent handler timeout");
+        System.out.println(Thread.currentThread().getName() + ": [LongEventWorkHandler] longEvent handler timeout");
     }
 }
